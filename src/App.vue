@@ -1,16 +1,39 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h2>{{name}}</h2>
+    <div>
+      <button v-on:click="changeName">Change name</button>
+    </div>
+    <h2>{{count}}</h2>
+    <div>
+      <button v-on:click="increment($event), changeName($event)">Increment</button>
+      <button @click="decrement">Decrement</button>
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  data() {
+    return {
+      name: 'Toaiben',
+      count: 0,
+    };
+  },
+  methods: {
+    changeName(event) {
+      this.name = 'quyetben';
+      console.log('Event c:', event);
+    },
+    increment(event) {
+      this.count++;
+      console.log('Event:', event);
+    },
+    decrement() {
+      this.count--;
+    }
+  },
 }
 </script>
 
@@ -23,4 +46,6 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+
 </style>
