@@ -1,16 +1,17 @@
+
 <template>
-  <h2>Fullname: {{ fullName }} </h2>
-  <h2>total computed: {{ total }}</h2>
-  <h2>total method: {{ getTotal() }}</h2>
-  <input type="text" v-model.number="items[1].price">
-
-  <template v-for="item in items" :key="item">
-    <h2 v-if="item.price>100"> {{item.title}} </h2>
-  </template>
-
-  <template v-for="item in expensiveItem" :key="item">
-    <h2> {{item.title}} </h2>
-  </template>
+    <h2>Volume tracker (0-20)</h2>
+    <h3>Current Volume - {{ volume }}</h3>
+    <div>
+      <button @click="volume += 2">Increase</button>
+      <button @click="volume -= 2">Decrease</button>
+    </div>
+    <input type="text" v-model="movie">
+    <input type="text" v-model="movieInfor.title">
+    <input type="text" v-model="movieInfor.actor">
+    <div>
+      <button @click="movieList = movieList.concat(['wonderwoman'])">Add movie</button>
+    </div>
 </template>
 
 <script>
@@ -20,44 +21,40 @@ export default {
   name: 'App',
   data() {
     return {
-      firstName: 'Pham',
-      lastName: 'Toai',
-      items: [
-        {
-          id: 1,
-          title: 'TV',
-          price: 120,
-        },
-        {
-          id: 2,
-          title: 'Phone',
-          price: 220,
-        },
-        {
-          id: 3,
-          title: 'Laptop',
-          price: 40,
-        },
-      ],
-      country: ''
-    };
-  },
-  methods: {
-    getTotal() {
-      console.log("method");
-      return this.items.reduce((total, curr) => (total = total + curr.price), 0)
+      volume: 0,
+      movie: 'batman',
+      movieInfor: {
+        title: '',
+        actor: ''
+      },
+      movieList: ['Batman', 'superman']
     }
   },
-  computed: {
-    fullName() {
-      return `${this.firstName}  ${this.lastName}`
+  methods: {},
+  computed: {},
+  watch: {
+    volume(newValue, oldValue) {
+      if(newValue > oldValue && newValue == 16) {
+        alert('Listening to a high volume for a long time may damage your hearing');
+      }
     },
-    total() {
-      console.log("computed");
-      return this.items.reduce((total, curr) => (total = total + curr.price), 0)
+    movie:{
+      handler(newValue) {
+        console.log(`Calling API with movie name = ${newValue}`);
+      },
+      immediate: true
     },
-    expensiveItem() {
-      return this.items.filter(item => item.price > 100)
+    movieInfor: {
+      handler(newValue) {
+        console.log(`Calling API with movie title = ${newValue.title} and actor = ${newValue.actor}`);
+      },
+      deep: true
+    },
+    movieList: {
+      handler(newValue) {
+        console.log(`Update list ${newValue}`);
+      },
+      // deep: true
     }
   }
 }
