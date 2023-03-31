@@ -1,60 +1,33 @@
-
 <template>
-    <h2>Volume tracker (0-20)</h2>
-    <h3>Current Volume - {{ volume }}</h3>
-    <div>
-      <button @click="volume += 2">Increase</button>
-      <button @click="volume -= 2">Decrease</button>
-    </div>
-    <input type="text" v-model="movie">
-    <input type="text" v-model="movieInfor.title">
-    <input type="text" v-model="movieInfor.actor">
-    <div>
-      <button @click="movieList = movieList.concat(['wonderwoman'])">Add movie</button>
-    </div>
+  <div>
+    <button @click="showPopup = true">Show popup</button>
+    <Popup v-show="showPopup" @close="closePopup"/>
+  </div>
 </template>
 
 <script>
-
-
+import Popup from './components/Popup.vue';
 export default {
   name: 'App',
+  components: {
+    Popup
+  },
   data() {
     return {
-      volume: 0,
-      movie: 'batman',
-      movieInfor: {
-        title: '',
-        actor: ''
-      },
-      movieList: ['Batman', 'superman']
+      showPopup: false
     }
   },
-  methods: {},
+  methods: {
+    closePopup(name) {
+      this.showPopup = false;
+      console.log('name: ',name);
+    }
+  },
   computed: {},
-  watch: {
-    volume(newValue, oldValue) {
-      if(newValue > oldValue && newValue == 16) {
-        alert('Listening to a high volume for a long time may damage your hearing');
-      }
-    },
-    movie:{
-      handler(newValue) {
-        console.log(`Calling API with movie name = ${newValue}`);
-      },
-      immediate: true
-    },
-    movieInfor: {
-      handler(newValue) {
-        console.log(`Calling API with movie title = ${newValue.title} and actor = ${newValue.actor}`);
-      },
-      deep: true
-    },
-    movieList: {
-      handler(newValue) {
-        console.log(`Update list ${newValue}`);
-      },
-      // deep: true
+  watch: {},
+  provide() {
+    return {
+      
     }
   }
 }
@@ -65,7 +38,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
+  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
