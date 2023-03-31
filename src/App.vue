@@ -1,34 +1,25 @@
 <template>
   <div>
-    <input type="text" v-model="name">
-    <Card>{{ name }}</Card>
-    <Card>{{ name }}</Card>
-    <Card></Card>
-
-    <Card>
-      <template v-slot:header>
-        <h3>header</h3>
+    <NameList>
+      <template v-slot:default='slotProps'>
+        {{ slotProps.firstName }} {{ slotProps.lastName }}
       </template>
-      <template v-slot:default>
-        <img src="https://picsum.photos/200" alt="">
+    </NameList>
+    
+    <NameList>
+      <template v-slot:default='slotProps'>
+        {{ slotProps.lastName }} {{ slotProps.firstName }}
       </template>
-      <template v-slot:footer>
-        <button>View Details</button>
-      </template>
-    </Card>
-
-    <NameList/>
+    </NameList>
   </div>
 </template>
 
 <script>
-import Card from './components/Card.vue';
 import NameList from './components/NameList.vue';
 
 export default {
   name: 'App',
   components: {
-    Card,
     NameList
   },
   data() {

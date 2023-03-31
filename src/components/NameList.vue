@@ -1,7 +1,7 @@
 <template>
     <div>
         <h3 v-for="name in names" :key="name.firstName">
-            {{ name.firstName }} {{ name.lastName }}
+            <slot :firstName='name.firstName' :lastName='name.lastName'></slot>
         </h3>
     </div>
 </template>
