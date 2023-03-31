@@ -1,27 +1,43 @@
 <template>
   <div>
-    <button @click="showPopup = true">Show popup</button>
-    <Popup v-show="showPopup" @close="closePopup"/>
+    <input type="text" v-model="name">
+    <Card>{{ name }}</Card>
+    <Card>{{ name }}</Card>
+    <Card></Card>
+
+    <Card>
+      <template v-slot:header>
+        <h3>header</h3>
+      </template>
+      <template v-slot:default>
+        <img src="https://picsum.photos/200" alt="">
+      </template>
+      <template v-slot:footer>
+        <button>View Details</button>
+      </template>
+    </Card>
+
+    <NameList/>
   </div>
 </template>
 
 <script>
-import Popup from './components/Popup.vue';
+import Card from './components/Card.vue';
+import NameList from './components/NameList.vue';
+
 export default {
   name: 'App',
   components: {
-    Popup
+    Card,
+    NameList
   },
   data() {
     return {
-      showPopup: false
+     name: ''
     }
   },
   methods: {
-    closePopup(name) {
-      this.showPopup = false;
-      console.log('name: ',name);
-    }
+    
   },
   computed: {},
   watch: {},
