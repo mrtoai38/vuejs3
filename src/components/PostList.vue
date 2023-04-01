@@ -1,6 +1,5 @@
 <template>
     <div>
-        <button @click="getPosts">Load posts</button>
         <h3 v-if="errMsg">{{ errMsg }}</h3>
         <div v-for="post in posts" :key="post.id">
             <h3>{{ post.id }}. {{ post.title }}</h3>
@@ -20,6 +19,9 @@
                 posts: [],
                 errMsg: ''
             }
+        },
+        created(){
+            this.getPosts();
         },
         methods: {  
             getPosts(){
